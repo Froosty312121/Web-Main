@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brera District - History & Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --italian-green: #009246;
+            --italian-white: #ffffff;
+            --italian-red: #ce2b37;
+            --apple-gray: #f5f5f7;
+            --apple-dark: #1d1d1f;
+            --apple-card: #ffffff;
+            --apple-text-secondary: #86868b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background: var(--apple-gray);
+            color: var(--apple-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000; padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+
+        .nav-content {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .nav-back {
+            text-decoration: none; color: var(--apple-dark);
+            font-weight: 500; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover { color: var(--italian-green); }
+        .nav-logo { font-weight: 600; font-size: 1.2rem; }
+
+        .nav-flag { display: flex; gap: 3px; }
+        .nav-flag span {
+            width: 10px; height: 10px; border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .nav-flag span:nth-child(1) { background: var(--italian-green); }
+        .nav-flag span:nth-child(2) { background: #e0e0e0; border: 1px solid #ccc; }
+        .nav-flag span:nth-child(3) { background: var(--italian-red); }
+        .nav-flag span:hover { transform: scale(1.4); }
+
+        .page-hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 4rem; padding-top: 80px;
+            background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.3) 100%),
+                        url('https://picsum.photos/seed/brera-district-hero/1920/1200') center/cover;
+            color: white; position: relative;
+        }
+
+        .page-hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--italian-green), var(--italian-white), var(--italian-red));
+        }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 500;
+            margin-bottom: 1.5rem; width: fit-content;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge .badge-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--italian-green);
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 700; letter-spacing: -0.02em;
+            line-height: 1.1; margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .page-hero .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 300;
+            max-width: 700px; opacity: 0.9; line-height: 1.5;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .info-bar {
+            background: white; padding: 2rem 4rem;
+            display: flex; justify-content: center; gap: 3rem;
+            flex-wrap: wrap; border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .info-item {
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; gap: 0.5rem;
+        }
+        .info-item .icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .info-item .label {
+            font-size: 0.8rem; color: var(--apple-text-secondary);
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .info-item .value { font-size: 1rem; font-weight: 600; }
+
+        .article-container { max-width: 800px; margin: 0 auto; padding: 5rem 2rem; }
+
+        .article-meta {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 3rem; padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--apple-gray);
+        }
+
+        .meta-left .category {
+            font-size: 0.85rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--italian-green); margin-bottom: 0.3rem;
+        }
+        .meta-left .reading-time { font-size: 0.9rem; color: var(--apple-text-secondary); }
+
+        .flag-accent { display: flex; gap: 4px; }
+        .flag-accent span { width: 20px; height: 3px; border-radius: 2px; }
+        .flag-accent span:nth-child(1) { background: var(--italian-green); }
+        .flag-accent span:nth-child(2) { background: #e0e0e0; }
+        .flag-accent span:nth-child(3) { background: var(--italian-red); }
+
+        .article-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; font-weight: 700;
+            letter-spacing: -0.02em; margin: 3rem 0 1.5rem; line-height: 1.2;
+        }
+        .article-content h3 {
+            font-size: 1.5rem; font-weight: 600;
+            margin: 2.5rem 0 1rem; letter-spacing: -0.01em;
+        }
+        .article-content p {
+            font-size: 1.1rem; line-height: 1.8; color: #333;
+            margin-bottom: 1.5rem;
+        }
+        .article-content .lead {
+            font-size: 1.25rem; font-weight: 400; color: var(--apple-dark);
+            line-height: 1.7;
+        }
+        .article-content blockquote {
+            border-left: 4px solid var(--italian-green);
+            padding-left: 2rem; margin: 2.5rem 0;
+            font-style: italic; font-size: 1.3rem;
+            line-height: 1.6; color: #555;
+        }
+        .article-content blockquote cite {
+            display: block; margin-top: 1rem; font-size: 0.9rem;
+            font-style: normal; color: var(--apple-text-secondary);
+        }
+
+        .image-gallery {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1rem; margin: 3rem 0;
+        }
+        .image-gallery img {
+            width: 100%; height: 250px; object-fit: cover;
+            border-radius: 16px; transition: transform 0.4s ease;
+        }
+        .image-gallery img:hover { transform: scale(1.03); }
+        .image-gallery img.full { grid-column: 1 / -1; height: 400px; }
+
+        .timeline {
+            margin: 3rem 0; padding-left: 2rem;
+            border-left: 3px solid var(--italian-green);
+        }
+        .timeline-item { margin-bottom: 2rem; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -2.35rem; top: 0.3rem;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--italian-green); border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--italian-green);
+        }
+        .timeline-item .year {
+            font-size: 0.9rem; font-weight: 600; color: var(--italian-red);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-item .event { font-size: 1rem; color: #555; line-height: 1.6; }
+
+        .stats-box {
+            background: linear-gradient(135deg, var(--italian-green), #007a3d);
+            color: white; padding: 3rem; border-radius: 24px; margin: 3rem 0;
+        }
+        .stats-box h3 { font-size: 1.5rem; margin-bottom: 2rem; color: white; }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+        .stat-item .stat-value { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .stat-item .stat-label { font-size: 0.9rem; opacity: 0.85; }
+
+        .visit-info {
+            background: white; border-radius: 24px; padding: 3rem;
+            margin: 3rem 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        .visit-info h3 { font-size: 1.8rem; margin-bottom: 2rem; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .info-card {
+            padding: 1.5rem; background: var(--apple-gray); border-radius: 16px;
+        }
+        .info-card h4 {
+            font-size: 1rem; margin-bottom: 0.8rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .info-card p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+        .next-place {
+            background: white; border-radius: 24px; overflow: hidden;
+            margin: 5rem 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            text-decoration: none; color: inherit; display: block;
+            transition: all 0.4s ease;
+        }
+        .next-place:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .next-place-content { display: grid; grid-template-columns: 1fr 1fr; }
+        .next-place-image { width: 100%; height: 300px; object-fit: cover; }
+        .next-place-info {
+            padding: 3rem; display: flex;
+            flex-direction: column; justify-content: center;
+        }
+        .next-place-info .nav-label {
+            font-size: 0.85rem; color: var(--italian-green); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .next-place-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; margin-bottom: 0.8rem;
+        }
+        .next-place-info p { color: var(--apple-text-secondary); line-height: 1.6; }
+
+        footer {
+            background: var(--apple-dark); color: white;
+            padding: 3rem 2rem; text-align: center;
+        }
+        .footer-flag {
+            display: flex; justify-content: center; gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .footer-flag span { width: 40px; height: 4px; border-radius: 2px; }
+        .footer-flag span:nth-child(1) { background: var(--italian-green); }
+        .footer-flag span:nth-child(2) { background: white; }
+        .footer-flag span:nth-child(3) { background: var(--italian-red); }
+        footer p { color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+        }
+
+        .music-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border: none;
+            border-radius: 50px;
+            padding: 0.7rem 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--apple-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .music-toggle.playing {
+            background: linear-gradient(135deg, var(--italian-green), #007a3d);
+            color: white;
+        }
+
+        .music-icon {
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle.playing .music-icon {
+            animation: musicPulse 1.5s ease-in-out infinite;
+        }
+
+        .music-label {
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero { padding: 2rem; padding-top: 80px; }
+            .info-bar { padding: 2rem; gap: 2rem; }
+            .image-gallery { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .next-place-content { grid-template-columns: 1fr; }
+            .article-container { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="milan-guide.html" class="nav-back">Back to all places</a>
+            <div class="nav-logo">Brera District</div>
+            <div class="nav-flag">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Historic Artistic Quarter
+        </div>
+        <h1>Brera District</h1>
+        <p class="subtitle">Milan's bohemian quarter — a labyrinth of cobblestone streets housing the city's greatest art collection, artisan workshops, and the most romantic atmosphere in Italy</p>
+    </section>
+
+    <div class="info-bar">
+        <div class="info-item">
+            <div class="icon">📍</div>
+            <div class="label">Location</div>
+            <div class="value">Central Milan</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">🏛️</div>
+            <div class="label">Pinacoteca</div>
+            <div class="value">400+ paintings</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">🏗️</div>
+            <div class="label">Origins</div>
+            <div class="value">13th century</div>
+        </div>
+        <div class="info-item">
+            <div class="icon">🎫</div>
+            <div class="label">Gallery Entry</div>
+            <div class="value">€15</div>
+        </div>
+    </div>
+
+    <article class="article-container">
+        <div class="article-meta">
+            <div class="meta-left">
+                <div class="category">Historical Article</div>
+                <div class="reading-time">8 min read</div>
+            </div>
+            <div class="flag-accent">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="article-content">
+            <p class="lead">Tucked between the grand boulevards of central Milan lies a neighborhood that feels like a village. The Brera is Milan's most intimate and artistic quarter — a warren of narrow cobblestone streets where climbing roses spill over stucco facades, antique dealers haggle in hushed tones, and the scent of fresh paint drifts from artists' studios. At its heart stands the Pinacoteca di Brera, one of Italy's most important art galleries, housing masterpieces by Raphael, Caravaggio, and Piero della Francesca.</p>
+
+            <h2>Medieval Origins</h2>
+
+            <p>The name "Brera" may derive from "Braida," a Germanic word meaning "clearing" or "open field" — a reference to the area's origins as a cleared space outside Milan's medieval walls. By the 13th century, the area had developed into a residential neighborhood, and in 1272, the Umiliati, a religious order known for their wool production, established a monastery here.</p>
+
+            <p>In 1571, the Jesuits took over the monastery and began constructing the grand complex that still defines the area today. They built the church of Santa Maria in Brera and the Collegio di Brera, a school that would eventually evolve into one of Italy's most important cultural institutions. The Jesuits' commitment to education and scholarship transformed the neighborhood from a quiet residential area into a center of learning.</p>
+
+            <blockquote>
+                "The Brera is Milan's secret heart — the neighborhood where the city's industrial energy dissolves into art, poetry, and the timeless rhythm of Italian daily life."
+                <cite>— Fernanda Pivano, Italian writer and translator</cite>
+            </blockquote>
+
+            <h2>The Jesuit Academy</h2>
+
+            <p>The Collegio di Brera flourished under Jesuit management. By the 17th century, it had become one of the most prestigious educational institutions in Europe, teaching theology, philosophy, mathematics, and the sciences. The Jesuits also established an astronomical observatory, a botanical garden, and a printing press — making the Brera complex a kind of Renaissance university campus before the concept existed.</p>
+
+            <p>In 1773, the Jesuit order was suppressed by Pope Clement XIV, and the complex passed to the Austrian government, which was then ruling Lombardy. Empress Maria Theresa transformed the Collegio into the Accademia di Belle Arti (Academy of Fine Arts), which continues to operate today as one of Italy's most respected art schools. She also established the Biblioteca Braidense, one of Italy's great research libraries, and the astronomical observatory.</p>
+
+            <div class="image-gallery">
+                <img src="https://picsum.photos/seed/brera-street-cobblestone/600/400" alt="Brera Cobblestone Street">
+                <img src="https://picsum.photos/seed/brera-pinacoteca-facade/600/400" alt="Pinacoteca di Brera Facade">
+                <img src="https://picsum.photos/seed/brera-botanical-garden/800/400" alt="Brera Botanical Garden" class="full">
+            </div>
+
+            <h2>The Pinacoteca di Brera</h2>
+
+            <p>The crown jewel of the Brera district is undoubtedly the Pinacoteca, one of Italy's most important art galleries. Its collection was assembled from monasteries and churches suppressed during the Napoleonic era, when Napoleon's armies confiscated religious art across northern Italy and centralized it in a single location for preservation and public display.</p>
+
+            <h3>Masterworks</h3>
+
+            <p>The Pinacoteca's collection reads like a who's who of Italian painting. Raphael's "Sposalizio della Vergine" (The Marriage of the Virgin) is perhaps the gallery's most famous work — a masterpiece of High Renaissance composition painted in 1504 when Raphael was just 21 years old. Piero della Francesca's "Pala di Brera" (also known as the Montefeltro Altarpiece) is one of the most profound religious paintings of the 15th century, depicting the Madonna and Child surrounded by saints in a soaring architectural setting.</p>
+
+            <p>Caravaggio is represented by his harrowing "Supper at Emmaus" (1606), painted during the artist's flight from Rome after he killed a man in a duel. Andrea Mantegna's "Dead Christ" is one of the most radical experiments in perspective in art history — a foreshortened view of Christ's body that confronts the viewer with an almost unbearable intimacy. The collection also includes works by Bellini, Tintoretto, Tiepolo, Hayez, and Modigliani.</p>
+
+            <h3>Hayez and Romanticism</h3>
+
+            <p>Francesco Hayez, the great 19th-century Romantic painter, spent much of his career in Milan and is closely associated with the Brera. His most famous work, "Il Bacio" (The Kiss), painted in 1859, is one of the most iconic images in Italian art. Though the original is in the Pinacoteca, reproductions of the painting have become symbols of Italian Romanticism worldwide. Hayez served as the director of the Accademia di Brera for decades, shaping generations of Italian artists.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">1272</div>
+                    <div class="event">The Umiliati religious order establishes a monastery in the Brera area.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1571</div>
+                    <div class="event">The Jesuits take over the monastery and begin constructing the grand Brera complex, including the church of Santa Maria in Brera.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1773</div>
+                    <div class="event">The Jesuit order is suppressed. The Austrian government takes control of the complex.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1776</div>
+                    <div class="event">Empress Maria Theresa establishes the Accademia di Belle Arti and the Biblioteca Braidense at Brera.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1809</div>
+                    <div class="event">Napoleon opens the Pinacoteca di Brera to the public, housing artworks confiscated from suppressed religious institutions.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">1859</div>
+                    <div class="event">Francesco Hayez completes "Il Bacio," which becomes an icon of Italian Romanticism and nationalism.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2016</div>
+                    <div class="event">A major renovation of the Pinacoteca reopens with improved galleries, new lighting, and reorganized displays.</div>
+                </div>
+            </div>
+
+            <h2>The Bohemian Spirit</h2>
+
+            <p>Throughout the 20th century, the Brera became Milan's bohemian quarter. Artists, writers, musicians, and intellectuals were drawn to its affordable rents, atmospheric streets, and creative energy. The Via Brera itself became a destination for art lovers, lined with galleries, antique shops, and bookstores that remain to this day.</p>
+
+            <p>In the 1960s, the Brera was the center of Milan's countercultural movement. The neighborhood's cafes and bars were meeting places for avant-garde artists and writers. The influence of this creative ferment is still visible today in the street art, independent galleries, and alternative cultural spaces that coexist with the area's more traditional establishments.</p>
+
+            <div class="stats-box">
+                <h3>Brera by the Numbers</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">400+</div>
+                        <div class="stat-label">Paintings in Gallery</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1809</div>
+                        <div class="stat-label">Gallery Founded</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">38</div>
+                        <div class="stat-label">Gallery Rooms</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">700+</div>
+                        <div class="stat-label">Years of History</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>The Orto Botanico</h2>
+
+            <p>Hidden within the Brera complex is one of Milan's best-kept secrets: the Orto Botanico di Brera, a small but exquisite botanical garden. Founded in 1774 by the Austrian botanist Fulgenzio Vitman, the garden spans just 5,000 square meters but contains over 300 plant species. It served as a teaching garden for the medical and pharmaceutical students of the university, and today it remains a place of botanical research and public enjoyment.</p>
+
+            <h2>Brera Today</h2>
+
+            <p>Today, the Brera district balances its artistic heritage with modern Milanese life. The Pinacoteca attracts art lovers from around the world, while the Accademia continues to train new generations of artists. The neighborhood's restaurants and cafes — from the historic Nabucco to the elegant Brera Cafeteria — serve as meeting places for locals and visitors alike. On warm evenings, the cobblestone streets fill with people enjoying the aperitivo ritual, and the atmosphere is as vibrant and romantic as any neighborhood in Italy.</p>
+
+            <div class="visit-info">
+                <h3>Visiting Information</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>🕐 Gallery Hours</h4>
+                        <p>Tue–Sun: 8:30 AM – 7:15 PM<br>Closed Mondays<br>Botanical Garden: Free access</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🎫 Tickets</h4>
+                        <p>Pinacoteca: €15 (€10 reduced)<br>Free: EU under 18<br>First Sunday of month: Free</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🚇 Getting There</h4>
+                        <p>Metro: Lanza (M2), Montenapoleone (M3)<br>Tram: 1, 4, 8, 12, 14, 19<br>Bus: 61</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>💡 Pro Tips</h4>
+                        <p>Visit the Pinacoteca in the morning for fewer crowds. Then wander the streets — the real magic of Brera is in getting lost. Stop for aperitivo on Via Brera.</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="basilica.html" class="next-place">
+                <div class="next-place-content">
+                    <img src="https://picsum.photos/seed/basilica-ambrogio-next/600/400" alt="Basilica di Sant'Ambrogio" class="next-place-image">
+                    <div class="next-place-info">
+                        <div class="nav-label">Next Destination →</div>
+                        <h3>Basilica di Sant'Ambrogio</h3>
+                        <p>Milan's oldest church — a Romanesque masterpiece and the spiritual heart of the city</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-flag">
+            <span></span><span></span><span></span>
+        </div>
+        <p>Milan Guide 2026 | Discover the beauty of Italy</p>
+    </footer>
+
+    <!-- Background Music Player -->
+    <div class="music-player">
+        <button class="music-toggle" id="musicToggle" aria-label="Toggle background music">
+            <svg class="music-icon" id="musicIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <span class="music-label">Music</span>
+        </button>
+    </div>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="Mafia_ The Old Country - Original Game Soundtrack.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item, .stat-item, .info-card, .image-gallery img').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
